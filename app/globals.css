@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fffdf7; /* cream white */
+  --foreground: #04203a; /* deep navy text */
+  --accent: #0b4b78; /* navy accent */
+  --muted: #6b7280;
+  --radius: 12px;
 }
 
 @theme inline {
@@ -12,15 +15,62 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark theme (navy background, cream text) */
+[data-theme="dark"] {
+  --background: #071029; /* navy blue */
+  --foreground: #f6efe6; /* cream text */
+  --accent: #1f77b4;
+  --muted: #9aa6b2;
+}
+
+/* Smooth transitions and base body styles */
+* {
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Theme toggle button positioning and look */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 60;
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25));
+  box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+  border: 1px solid rgba(2,6,23,0.06);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 22px rgba(2,6,23,0.6);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.theme-toggle:focus {
+  outline: 3px solid rgba(11,75,120,0.14);
+  outline-offset: 2px;
 }
